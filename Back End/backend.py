@@ -108,7 +108,7 @@ def add_project():
        db.session.commit()
        return jsonify(message="You added a project"), 201
 
-@app.route('add_expense', methods=['POST'])
+@app.route('/add_expense', methods=['POST'])
 def add_expense():
     expense_id = request.form['expense_id']
     existId = Expense.query.filter_by(expense_id=expense_id).first()
