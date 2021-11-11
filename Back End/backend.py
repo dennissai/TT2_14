@@ -29,6 +29,21 @@ def homepage():
 def not_found():
     return jsonify(message='The resource was not found'), 404
 
+@app.route('/login', methods=['POST'])
+def login():
+    if request.is_json:
+        username = request.json['username']
+        password = request.json['password']
+    else:
+        username = request.form['username']
+        password = request.form['password']
+
+    test = User.query.filter_by(username=username, password=password).first()
+    if test:
+        access_token = create_access_token(identity=username)
+        return jsonify(message="Login succeeded!", access_token=access_token)
+    else:
+        return jsonify(message="User not in database. Please try it again"), 401
 
 
 
