@@ -11,19 +11,19 @@ import Home from "./pages/Home"
 
 
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Loginpage />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
-
-//TODO: Solve redirect problem then remove this
-
 // ReactDOM.render(
 //   <React.StrictMode>
-//     {/*<Loginpage />*/}
-//     <Home/>
+//     <Loginpage />
 //   </React.StrictMode>,
 //   document.getElementById("root")
 // );
+
+//TODO: Solve redirect problem then remove this
+
+ReactDOM.render(
+  <React.StrictMode>
+    {/*<Loginpage />*/}
+    <Home/>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
