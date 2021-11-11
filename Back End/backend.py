@@ -76,7 +76,7 @@ class Project(db.Model): # create database name Detail
     description=Column(String)
 
 
-class Production(db.Model): # create database name User
+class Category(db.Model): # create database name User
     __tablename__='production'
     product_id=Column(Integer,primary_key=True)
     production_name=Column(String)
