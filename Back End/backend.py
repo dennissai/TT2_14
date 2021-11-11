@@ -100,6 +100,17 @@ def add_expense():
         db.session.commit()
         return jsonify(message="You add a expense"), 201
 
+@app.route('/delete_expense/<int:id>')
+def delete_expense():
+    expense_to_delete = Expense.query.get_or_404(id)
+
+    try:
+        db.session.delete(expense_to_delete)
+        db.session.commit()
+        return jsonify(message="Successfully deleted expense"), 201
+    except:
+        return jsonify(message="Error deleting expense"), 404
+
 class User(db.Model): # create database name User
     __tablename__='user'
     id=Column(Integer,primary_key=True)
