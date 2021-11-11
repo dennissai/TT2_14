@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; //TODO: Since using React Component
+import React, { Component } from 'react';
 import 'axios';
 
 
@@ -9,8 +9,6 @@ class Expense extends Component {
     this.state = {}
     let stateRef = this.state;
     stateRef.result = props.result;
-
-    console.log("Hello world");
   }
 
   // async componentDidMount() {

@@ -57,6 +57,40 @@ def db_drop():
     db.drop_all()
     print('Database dropped!')
 
+@app.route('/add_project', methods=['POST'])
+def add_project():
+   project_name = request.form['project_name']
+   test = Project.query.filter_by(project_name=project_name).first()
+   if test:
+       return jsonify("There is already a this project name exist"), 409
+   else:
+        project_id =float(request.form['project_id'])
+        project_budget =float(request.form['project_budget'])
+        project_description = (request.form['project_description'])
+       
+
+        new_project = Project(project_name=project_name,project_id=project_id,project_budget=project_budget,project_description=project_description)
+                          
+        db.session.add(new_project)
+        db.session.commit()
+        return jsonify(message="You added a project"), 201
+
+@app.route('/add_category', methods = ['POST'])
+def add_Category():
+    category_name = request.form['category_name']
+    category_test = Project.query.filter_by(category_name=category_name).first()
+    if category_test:
+        return jsonify("This category name already exist."), 409
+    else:
+        address = (request.form['address'])
+        quotes = (request.form['quotes'])
+
+        new_profile = Project(project_name=second_name,weight=weight,address=address,quotes=quotes)
+                          
+        db.session.add(new_profile)
+        db.session.commit()
+        return jsonify(message="You added a profile"), 201
+
 
 class User(db.Model): # create database name User
     __tablename__='user'
@@ -71,15 +105,15 @@ class Project(db.Model): # create database name Detail
     __tablename__='project'
     project_id=Column(Integer,primary_key=True)
     project_user_id=Column(Float)
-    name=Column(String)
-    budget=Column(Float)
-    description=Column(String)
+    project_name=Column(String)
+    project_budget=Column(Float)
+    project_description=Column(String)
 
 
 class Category(db.Model): # create database name User
-    __tablename__='production'
-    product_id=Column(Integer,primary_key=True)
-    production_name=Column(String)
+    __tablename__='category'
+    category_id=Column(Integer,primary_key=True)
+    category_name=Column(String)
 
 
 class Expense(db.Model): # create database name Detail
@@ -94,6 +128,26 @@ class Expense(db.Model): # create database name Detail
     expense_created_by=Column(String)
     expense_updated_at=Column(Float)
     expense_updated_by=Column(String)
+
+
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+
+
+class ProjectSchema(ma.Schema):
+class Meta:fields = ('project_id', 'project_user','project_name', 'project_budget', 'project_description')
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)
+
+detail_schema = DetailSchema()
+details_schema = DetailSchema(many=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
