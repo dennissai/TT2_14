@@ -1,5 +1,7 @@
 import React from "react";
 
-export const singleproject = () => {
+export const Singleproject = () => {
   return <div></div>;
 };
+
+export default Singleproject;
