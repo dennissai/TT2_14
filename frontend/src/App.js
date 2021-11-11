@@ -1,10 +1,16 @@
 // import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import Loginpage from "./pages/Home";
+import Singleproject from "./pages/Singleproject";
 
 function App() {
-  return <div>hello</div>;
+  return (
+    <Router>
+      <Routes>
+        <Route exact path='/home' element={<Home />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
