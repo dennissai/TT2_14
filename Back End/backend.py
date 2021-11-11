@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float , 
 import os
 from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
@@ -65,6 +65,26 @@ class Project(db.Model): # create database name Detail
     name=Column(String)
     budget=Column(Float)
     description=Column(String)
+
+
+class Production(db.Model): # create database name User
+    __tablename__='production'
+    product_id=Column(Integer,primary_key=True)
+    production_name=Column(String)
+
+
+class Expense(db.Model): # create database name Detail
+    __tablename__='Expense'
+    expense_id=Column(Integer,primary_key=True)
+    project_id=Column(Float)
+    category_id=Column(Float)
+    expense_name=Column(String)
+    expense_description=Column(String)
+    expense_amount=Column(Float)
+    expense_created_at=(Float)
+    expense_created_by=(String)
+    expense_updated_at=(Float)
+    expense_updated_by=(String)
 
 if __name__ == '__main__':
     app.run(debug=True)
