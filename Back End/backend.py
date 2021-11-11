@@ -19,11 +19,11 @@ jwt = JWTManager(app)
 
 @app.route("/")
 def hello():
-    return "Homepage of Budget"
+    return "Budget"
 
 @app.route("/homepage")
 def homepage():
-    return jsonify (message='welcome to ky homepage'), 200
+    return jsonify (message='welcome to  Budget homepage'), 200
 
 @app.route('/not_found')
 def not_found():
