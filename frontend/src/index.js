@@ -2,18 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
-// import App from "./App";
+import App from "./App";
 
 import Loginpage from "./pages/loginpage"; //TODO: Renamed
-import Home from "./pages/Home"
-
-
-
-
+import Home from "./pages/Home";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Loginpage />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

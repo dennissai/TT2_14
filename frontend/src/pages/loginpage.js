@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 
 const Loginpage = () => {
   const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
-
-  // const handleAPI = () => {
-  //   //verify
-  //   <Link to='/' />;
-  // };
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hello world");
+    console.log("success");
+    navigate("/home");
 
     // if (firstName && password) {
 
@@ -57,6 +54,7 @@ const Loginpage = () => {
             </div>
           );
         })} */}
+        {/* {isLogin && <Link to='/home'>Home</Link>} */}
       </article>
     </>
   );
