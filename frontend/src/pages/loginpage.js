@@ -22,7 +22,7 @@ const Loginpage = () => {
   return (
     <>
       <article>
-        <form onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
           <div className='form-control'>
             <label htmlFor='firstName'>Username:</label>
             <input
@@ -43,7 +43,9 @@ const Loginpage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type='submit'>Submit</button>
+          <button className='btn' type='submit'>
+            Submit
+          </button>
         </form>
         {/* {people.map((person) => {
           const { id, firstName, Email } = person;
