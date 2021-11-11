@@ -57,6 +57,23 @@ def db_drop():
     db.drop_all()
     print('Database dropped!')
 
+@app.route('/add_project', methods=['POST'])
+def add_project():
+   project_name = request.form['project_name']
+   test = Project.query.filter_by(project_name=project_name).first()
+   if test:
+       return jsonify("There is already a this project name exist"), 409
+   else:
+        prohec =float(request.form['weight'])
+        address = (request.form['address'])
+        quotes = (request.form['quotes'])
+       
+
+        new_profile = Project(project_name=second_name,weight=weight,address=address,quotes=quotes)
+                          
+        db.session.add(new_profile)
+        db.session.commit()
+        return jsonify(message="You added a profile"), 201
 
 class User(db.Model): # create database name User
     __tablename__='user'
@@ -71,15 +88,15 @@ class Project(db.Model): # create database name Detail
     __tablename__='project'
     project_id=Column(Integer,primary_key=True)
     project_user_id=Column(Float)
-    name=Column(String)
-    budget=Column(Float)
-    description=Column(String)
+    project_name=Column(String)
+    project_budget=Column(Float)
+    project_description=Column(String)
 
 
 class Category(db.Model): # create database name User
-    __tablename__='production'
-    product_id=Column(Integer,primary_key=True)
-    production_name=Column(String)
+    __tablename__='category'
+    category_id=Column(Integer,primary_key=True)
+    category_name=Column(String)
 
 
 class Expense(db.Model): # create database name Detail
