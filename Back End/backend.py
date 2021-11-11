@@ -75,6 +75,23 @@ def add_project():
         db.session.commit()
         return jsonify(message="You added a profile"), 201
 
+@app.route('/add_category', methods = ['POST'])
+def add_Category():
+    category_name = request.form['category_name']
+    category_test = Project.query.filter_by(category_name=category_name).first()
+    if category_test:
+        return jsonify("This category name already exist."), 409
+    else:
+        address = (request.form['address'])
+        quotes = (request.form['quotes'])
+
+        new_profile = Project(project_name=second_name,weight=weight,address=address,quotes=quotes)
+                          
+        db.session.add(new_profile)
+        db.session.commit()
+        return jsonify(message="You added a profile"), 201
+
+
 class User(db.Model): # create database name User
     __tablename__='user'
     id=Column(Integer,primary_key=True)
