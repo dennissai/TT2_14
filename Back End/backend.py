@@ -108,7 +108,7 @@ def add_project():
        db.session.commit()
        return jsonify(message="You added a project"), 201
 
-@app.route('add_expense', methods=['POST'])
+@app.route('/add_expense', methods=['POST'])
 def add_expense():
     expense_id = request.form['expense_id']
     existId = Expense.query.filter_by(expense_id=expense_id).first()
@@ -140,9 +140,18 @@ def delete_expense():
     try:
         db.session.delete(expense_to_delete)
         db.session.commit()
-        return jsonify(message="Successfully deleted expense"), 201
+        return jsonify(message="Successfully deleted expense"), 200
     except:
         return jsonify(message="Error deleting expense"), 404
+
+@app.route('/get_expense/<int:id>', methods=['GET'])
+def get_expense(expense_id: int):
+    existId = Expense.query.filter_by(expense_id=expense_id).first()
+    if existId:
+        result = expense_schema.dump(existId)
+        return jsonify(result)
+    else:
+        return jsonify(message="Expense does not exist"), 404
 
 class User(db.Model): # create database name User
     __tablename__='user'
