@@ -1,11 +1,15 @@
 import React from "react";
-import ProjectList from "../components/projectlist";
+import ProjectList from "../components/ProjectList";
 
 const Home = () => {
   return (
-    <main>
+    <div>
+      <div>This is home component</div>
       <ProjectList />
-    </main>
+    </div>
+    // <main>
+    //   <ProjectList />
+    // </main>
   );
 };
 
