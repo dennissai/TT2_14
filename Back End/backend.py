@@ -80,23 +80,33 @@ def db_seed():
     db.session.commit()
     print('Database seeded!')
 
+
+@app.route('/project_details/<int:project_id>', methods=["GET"])
+def project_details(project: int):
+    project = Project.query.filter_by(project=project_id).first()
+    if project:
+        result = project_schema.dump(project)
+        return jsonify(result)
+    else:
+        return jsonify(message="That project does not exist"), 404
+
 @app.route('/add_project', methods=['POST'])
 def add_project():
-   project_user_id = request.form['project_user_id']
-   test = Project.query.filter_by(project_user_id=project_user_id).first()
-   if test:
-       return jsonify("There is already a this project name exist"), 409
-   else:
-        project_name =(request.form['project_name'])    
-        project_budget =float(request.form['project_budget'])
-        project_description = (request.form['project_description'])
-       
-
-        new_project = Project(project_user_id=project_user_id,project_name=project_name,project_budget=project_budget,project_description=project_description)
-                          
-        db.session.add(new_project)
-        db.session.commit()
-        return jsonify(message="You added a project"), 201
+    project_user_id = request.form['project_user_id']
+    test = Project.query.filter_by(project_user_id=project_user_id).first()
+    if test:
+        return jsonify("There is already a project by that name"), 409
+    else:
+       project_name = request.form['project_name']
+       project_budget = float(request.form[' project_budget'])
+       project_description =(request.form['project_description'])
+       new_project = Project(project_user_id=project_user_id,
+                            project_name=project_name,
+                            project_budget=project_budget,
+                            project_description=project_description)    
+       db.session.add(new_project)
+       db.session.commit()
+       return jsonify(message="You added a project"), 201
 
 class User(db.Model): # create database name User
     __tablename__='user'
