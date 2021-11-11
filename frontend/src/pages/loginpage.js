@@ -10,14 +10,12 @@ const Loginpage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { access_token, message } = await axios.post(
-      "http://127.0.0.1:5000/login",
-      {
-        username: firstName,
-        password: password,
-      }
-    ).data;
-    //console.log(response);
+    const response = await axios.post("http://127.0.0.1:5000/login", {
+      username: firstName,
+      password: password,
+    });
+    console.log(response);
+    const { access_token, message } = response.data;
     if (access_token && message) {
       navigate("/home");
     }
