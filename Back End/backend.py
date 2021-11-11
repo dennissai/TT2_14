@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Float , 
+from sqlalchemy import Column, Integer, String, Float 
 import os
 from flask_marshmallow import Marshmallow
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
@@ -9,7 +9,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 app = Flask(__name__)
 cors = CORS(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'profile.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'budget.db')
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # change this IRL**
 
 
@@ -90,10 +90,10 @@ class Expense(db.Model): # create database name Detail
     expense_name=Column(String)
     expense_description=Column(String)
     expense_amount=Column(Float)
-    expense_created_at=(Float)
-    expense_created_by=(String)
-    expense_updated_at=(Float)
-    expense_updated_by=(String)
+    expense_created_at=Column(Float)
+    expense_created_by=Column(String)
+    expense_updated_at=Column(Float)
+    expense_updated_by=Column(String)
 
 if __name__ == '__main__':
     app.run(debug=True)
