@@ -47,6 +47,25 @@ def login():
 
 
 
+
+
+class User(db.Model): # create database name User
+    __tablename__='user'
+    id=Column(Integer,primary_key=True)
+    username=Column(String)
+    password=Column(String)
+    name=Column(String)
+    appointment=Column(String)
+
+
+class Project(db.Model): # create database name Detail
+    __tablename__='project'
+    project_id=Column(Integer,primary_key=True)
+    project_user_id=Column(Float)
+    name=Column(String)
+    budget=Column(Float)
+    description=Column(String)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
