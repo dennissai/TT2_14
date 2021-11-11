@@ -64,16 +64,16 @@ def add_project():
    if test:
        return jsonify("There is already a this project name exist"), 409
    else:
-        prohec =float(request.form['weight'])
-        address = (request.form['address'])
-        quotes = (request.form['quotes'])
+        project_id =float(request.form['project_id'])
+        project_budget =float(request.form['project_budget'])
+        project_description = (request.form['project_description'])
        
 
-        new_profile = Project(project_name=second_name,weight=weight,address=address,quotes=quotes)
+        new_project = Project(project_name=project_name,project_id=project_id,project_budget=project_budget,project_description=project_description)
                           
-        db.session.add(new_profile)
+        db.session.add(new_project)
         db.session.commit()
-        return jsonify(message="You added a profile"), 201
+        return jsonify(message="You added a project"), 201
 
 class User(db.Model): # create database name User
     __tablename__='user'
@@ -111,6 +111,26 @@ class Expense(db.Model): # create database name Detail
     expense_created_by=Column(String)
     expense_updated_at=Column(Float)
     expense_updated_by=Column(String)
+
+
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+
+
+class ProjectSchema(ma.Schema):
+class Meta:fields = ('project_id', 'project_user','project_name', 'project_budget', 'project_description')
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+
+class UserSchema(ma.Schema):
+class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)
+
+detail_schema = DetailSchema()
+details_schema = DetailSchema(many=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
