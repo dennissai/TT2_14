@@ -140,9 +140,18 @@ def delete_expense():
     try:
         db.session.delete(expense_to_delete)
         db.session.commit()
-        return jsonify(message="Successfully deleted expense"), 201
+        return jsonify(message="Successfully deleted expense"), 200
     except:
         return jsonify(message="Error deleting expense"), 404
+
+@app.route('/get_expense/<int:id>', methods=['GET'])
+def get_expense(expense_id: int):
+    existId = Expense.query.filter_by(expense_id=expense_id).first()
+    if existId:
+        result = expense_schema.dump(existId)
+        return jsonify(result)
+    else:
+        return jsonify(message="Expense does not exist"), 404
 
 class User(db.Model): # create database name User
     __tablename__='user'
