@@ -46,7 +46,16 @@ def login():
         return jsonify(message="User not in database. Please try it again"), 401
 
 
+@app.cli.command('db_create') ## command to create database
+def db_create():
+    db.create_all()
+    print('Database created!')
 
+
+@app.cli.command('db_drop') #***
+def db_drop():
+    db.drop_all()
+    print('Database dropped!')
 
 
 class User(db.Model): # create database name User
