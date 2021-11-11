@@ -75,32 +75,7 @@ def add_project():
         db.session.commit()
         return jsonify(message="You added a project"), 201
 
-@app.route('/add_category', methods = ['POST'])
-def add_Category():
-    category_name = request.form['category_name']
-    category_test = Category.query.filter_by(category_name=category_name).first()
-    if category_test:
-        return jsonify("This category name already exist."), 409
-    else:
-        address = (request.form['address'])
-        quotes = (request.form['quotes'])
 
-        new_profile = Category(project_name=second_name,weight=weight,address=address,quotes=quotes)
-                          
-        db.session.add(new_profile)
-        db.session.commit()
-        return jsonify(message="New category added."), 201
-
-@app.route('/delete_category/<int:id>')
-def delete(id):
-    category_id = Category.query.get_or_404(id)
-
-    try:
-        db.session.delete(category_id)
-        db.session.commit()
-        return jsonify(message="Succesfully deleted category."),201
-    except:
-        return jsonify("Error while trying to delete category."),404
 
 
 
