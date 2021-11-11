@@ -75,10 +75,30 @@ def add_project():
         db.session.commit()
         return jsonify(message="You added a project"), 201
 
+@app.route('add_expense', methods=['POST'])
+def add_expense():
+    expense_id = request.form['expense_id']
+    existId = Expense.query.filter_by(expense_id=expense_id).first()
+    if existId:
+        return jsonify("Error adding expense"), 409
 
-
-
-
+    else:
+        expense_project_id = float(request.form['project_id'])
+        expense_category_id = float(request.form['category_id'])
+        expense_name = (request.form['name'])
+        expense_description = (request.form['description'])
+        expense_amount = float(request.form['amount'])
+        new_expense_class = Expense(
+        project_id= expense_project_id,
+        category_id=expense_category_id,
+        name=expense_name,
+        description=expense_description,
+        amount=expense_amount
+        )
+    
+        db.session.add(new_expense_class)
+        db.session.commit()
+        return jsonify(message="You add a expense"), 201
 
 class User(db.Model): # create database name User
     __tablename__='user'
