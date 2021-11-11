@@ -11,22 +11,21 @@ const data =
     "budget": 12000,
     "description": "Realtime Face Recogniton"
   },
-  {
-    "id": 2,
-    "user_id": 1,
-    "name": "SWT",
-    "budget": 80000,
-    "description": "Smart Watch Tracker"
-  },
-  {
-    "id": 3,
-    "user_id": 2,
-    "name": "ULS",
-    "budget": 11000,
-    "description": "Upgrade Legacy System"
-  }
+  // {
+  //   "id": 2,
+  //   "user_id": 1,
+  //   "name": "SWT",
+  //   "budget": 80000,
+  //   "description": "Smart Watch Tracker"
+  // },
+  // {
+  //   "id": 3,
+  //   "user_id": 2,
+  //   "name": "ULS",
+  //   "budget": 11000,
+  //   "description": "Upgrade Legacy System"
+  // }
 ]
-
 
 const ProjectList = () => {
   //Replace this after getting the API

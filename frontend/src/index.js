@@ -4,8 +4,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
-import Loginpage from "./pages/loginpage"; //TODO: Renamed
+import Loginpage from "./pages/loginpage";
 import Home from "./pages/Home";
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,13 +14,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-//TODO: Solve redirect problem then remove this
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     {/*<Loginpage />*/}
-//     <Home/>
-//   </React.StrictMode>,
-//   document.getElementById("root")
-// );
