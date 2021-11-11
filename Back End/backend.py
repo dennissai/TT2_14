@@ -29,21 +29,35 @@ def homepage():
 def not_found():
     return jsonify(message='The resource was not found'), 404
 
+@app.route('/register', methods=['POST'])
+def register():
+    username = request.form['username']
+    test = User.query.filter_by(username=username).first()
+    if test:
+        return jsonify(message='That username already exists.'), 409
+    else:
+        password = request.form['password']
+        name = request.form['name']
+        appointment = request.form['password']
+        user = User(username=username ,password=password, name=name, appointment=appointment)
+        db.session.add(user)
+        db.session.commit()
+        return jsonify(message="User created successfully."), 201
 @app.route('/login', methods=['POST'])
 def login():
     if request.is_json:
         username = request.json['username']
         password = request.json['password']
     else:
-        username = request.form['username']
-        password = request.form['password']
+       username = request.form['username']
+       password = request.form['password']
 
     test = User.query.filter_by(username=username, password=password).first()
     if test:
         access_token = create_access_token(identity=username)
         return jsonify(message="Login succeeded!", access_token=access_token)
     else:
-        return jsonify(message="User not in database. Please try it again"), 401
+        return jsonify(message="Bad email or password"), 401
 
 
 @app.cli.command('db_create') ## command to create database
@@ -57,19 +71,28 @@ def db_drop():
     db.drop_all()
     print('Database dropped!')
 
+
+@app.cli.command('db_seed') #**
+def db_seed():
+    test_user = User(usnername='user101',password='123456') #**
+
+    db.session.add(test_user)
+    db.session.commit()
+    print('Database seeded!')
+
 @app.route('/add_project', methods=['POST'])
 def add_project():
-   project_name = request.form['project_name']
-   test = Project.query.filter_by(project_name=project_name).first()
+   project_user_id = request.form['project_user_id']
+   test = Project.query.filter_by(project_user_id=project_user_id).first()
    if test:
        return jsonify("There is already a this project name exist"), 409
    else:
-        project_id =float(request.form['project_id'])
+        project_name =(request.form['project_name'])    
         project_budget =float(request.form['project_budget'])
         project_description = (request.form['project_description'])
        
 
-        new_project = Project(project_name=project_name,project_id=project_id,project_budget=project_budget,project_description=project_description)
+        new_project = Project(project_user_id=project_user_id,project_name=project_name,project_budget=project_budget,project_description=project_description)
                           
         db.session.add(new_project)
         db.session.commit()
@@ -103,7 +126,7 @@ class Expense(db.Model): # create database name Detail
     __tablename__='Expense'
     expense_id=Column(Integer,primary_key=True)
     project_id=Column(Float)
-    category_id=Column(Float)
+    catgory_expense_id=Column(Float)
     expense_name=Column(String)
     expense_description=Column(String)
     expense_amount=Column(Float)
@@ -115,22 +138,33 @@ class Expense(db.Model): # create database name Detail
 
 
 class UserSchema(ma.Schema):
-class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+    class Meta:
+        fields = ('id', 'username', 'password', 'name', 'appointment')
 
 
 class ProjectSchema(ma.Schema):
-class Meta:fields = ('project_id', 'project_user','project_name', 'project_budget', 'project_description')
+    class Meta:
+        fields = ('project_id', 'project_user_id','project_name', 'project_budget', 'project_description')
 
-class UserSchema(ma.Schema):
-class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+class CategorySchema(ma.Schema):
+    class Meta:
+        fields = ('category_id','category_name')
 
-class UserSchema(ma.Schema):
-class Meta:fields = ('id', 'username', 'password', 'name', 'appointment')
+class ExpenseSchema(ma.Schema):
+    class Meta:
+        fields = ('expense_id','category_expense_id' ,'expense_name', 'expense_description', 'expense_amount', ' expense_created_at', 'expense_updated_at','expense_updated_by')
+
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
 
-detail_schema = DetailSchema()
-details_schema = DetailSchema(many=True)
+project_schema = ProjectSchema()
+projects_schema = ProjectSchema(many=True)
+
+category_schema = CategorySchema()
+categories_schema = CategorySchema(many=True)
+
+expense_schema = ExpenseSchema()
+expenses_schema = ExpenseSchema(many=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
